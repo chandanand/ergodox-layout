@@ -2,6 +2,8 @@
 
 ## Changelog
 
+* Jan 2020:
+  * Added Colemak base layer.
 * Dec 2016:
   * Added LED keys
   * Refreshed layout graphic, comes from http://configure.ergodox-ez.com now.
