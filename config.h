@@ -1,24 +1,21 @@
-#include QMK_KEYBOARD_CONFIG_H
+#pragma once
 
-#undef MOUSEKEY_TIME_TO_MAX
-#undef MOUSEKEY_MAX_SPEED
+// default but used in macros
+#define TAPPING_TERM 200
 
-#define MOUSEKEY_TIME_TO_MAX 1
-#define MOUSEKEY_MAX_SPEED 2
+// Prevent normal rollover on alphas from accidentally triggering mods.
+#define IGNORE_MOD_TAP_INTERRUPT
 
-#undef MOUSEKEY_DELAY
-#define MOUSEKEY_DELAY 0
+// Enable rapid switch from tap to hold, disables double tap hold auto-repeat.
+#define TAPPING_FORCE_HOLD
 
-#undef MOUSEKEY_WHEEL_DELAY
-#define MOUSEKEY_WHEEL_DELAY 0
+// Auto Shift and Retro Shift (Auto Shift for Tap Hold).
+#define AUTO_SHIFT_TIMEOUT TAPPING_TERM
+#define RETRO_SHIFT 500
 
-#define ONESHOT_TAP_TOGGLE 2
-#define ONESHOT_TIMEOUT 3000
+// Recommended for heavy chording.
+#define QMK_KEYS_PER_SCAN 4
 
-#undef LEADER_TIMEOUT
-#define LEADER_TIMEOUT 1000
-
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
-
+// RGB effects on keypresses
 #define RGB_MATRIX_KEYPRESSES
+#define RGB_MATRIX_FRAMEBUFFER_EFFECTS
