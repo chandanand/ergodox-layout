@@ -48,12 +48,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------.           ,----------------------------------------------------.
  * |           |   1  |   2  |   3  |   4  |   5  |      |           |      |   6  |   7  |   8  |   9  |   0  |          |
  * |-----------+------+------+------+------+-------------|           |------+------+------+------+------+------+----------|
- * |           |   Q  |   W  |   F  |   P  |   B  |      |           |      |   J  |   L  |   U  |   Y  |   '  |          |
+ * |           |   Q  |   W  |   F  |   P  |   G  |      |           |      |   J  |   L  |   U  |   Y  |   '  |          |
  * |-----------+------+------+------+------+------|      |           |      |------+------+------+------+------+----------|
- * |           |   A  |   R  |   S  |   T  |   G  |      |           |      |   M  |   N  |   E  |   I  |   O  |          |
+ * |           |   A  |   R  |   S  |   T  |   D  |      |           |      |   H  |   N  |   E  |   I  |   O  |          |
  * |           |  CMD |  OPT |  CTL |  SFT |      |------|           |------|      |  SFT |  CTL |  OPT |  CMD |          |
  * |-----------+------+------+------+------+------| tmux |           | tmux |------+------+------+------+------+----------|
- * |           |   Z  |   X  |   C  |   D  |   V  |      |           |      |   K  |   H  |   ,  |   .  |   /  |          |
+ * |           |   Z  |   X  |   C  |   V  |   B  |      |           |      |   K  |   M  |   ,  |   .  |   /  |          |
  * `-----------+------+------+------+------+-------------'           `-------------+------+------+------+------+----------'
  *   |         |      |      |      | Esc  |                                       |  Del |      |      |      |        |
  *   `-------------------------------------'                                       `------------------------------------'
@@ -68,13 +68,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [BASE] = LAYOUT_ergodox_pretty(
   // left hand
   XXXX,    KC_1,           KC_2,           KC_3,           KC_4,           KC_5,      XXXX,                      XXXX,            KC_6,           KC_7,           KC_8,           KC_9,      KC_0,       XXXX,
-  XXXX,    KC_Q,           KC_W,           KC_F,           KC_P,           KC_B,      XXXX,                      XXXX,            KC_J,           KC_L,           KC_U,           KC_Y,      KC_QUOT,    XXXX,
-  XXXX,    CMD_T(KC_A),    OPT_T(KC_R),    CTL_T(KC_S),    SFT_T(KC_T),    KC_G,      KC_M,                      SFT_T(KC_N),     CTL_T(KC_E),    OPT_T(KC_I),    CMD_T(KC_O),    XXXX,
-  XXXX,    KC_Z,           KC_X,           KC_C,           KC_D,           KC_V,      LCTL(KC_SPC),              LCTL(KC_SPC),    KC_K,           KC_H,           KC_COMM,        KC_DOT,    KC_SLSH,    XXXX,
+  XXXX,    KC_Q,           KC_W,           KC_F,           KC_P,           KC_G,      XXXX,                      XXXX,            KC_J,           KC_L,           KC_U,           KC_Y,      KC_QUOT,    XXXX,
+  XXXX,    CMD_T(KC_A),    OPT_T(KC_R),    CTL_T(KC_S),    SFT_T(KC_T),    KC_D,      KC_H,                      SFT_T(KC_N),     CTL_T(KC_E),    OPT_T(KC_I),    CMD_T(KC_O),    XXXX,
+  XXXX,    KC_Z,           KC_X,           KC_C,           KC_V,           KC_B,      LCTL(KC_SPC),              LCTL(KC_SPC),    KC_K,           KC_M,           KC_COMM,        KC_DOT,    KC_SLSH,    XXXX,
   XXXX,    XXXX,           XXXX,           XXXX,           KC_ESC,                                                                                KC_DEL,         XXXX,           XXXX,      XXXX,       XXXX,
                                                                            XXXX,      XXXX,                      XXXX,            OSL(WIN),
                                                                                       XXXX,                      XXXX,
-                                           LT(NAVR, KC_SPC),  LT(FMDIA, KC_TAB),      XXXX,                      XXXX,            LT(SYMB, KC_ENT),   LT(NMBR, KC_BSPC)
+                                           LT(NAVR, KC_BSPC), LT(FMDIA, KC_TAB),      XXXX,                      XXXX,            LT(SYMB, KC_ENT),   LT(NMBR, KC_SPC)
 ),
 
 /* Keymap 1: Navigation layer
