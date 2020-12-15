@@ -11,8 +11,10 @@ enum layers {
     FMDIA,
     NMBR,
     SYMB,
-    FULL
+    WNDW,
 };
+
+bool caps_lock = false;
 
 #define XXXX KC_NO
 #define ____ KC_TRNS
@@ -22,42 +24,52 @@ enum layers {
 #define KC_MAC_COPY LGUI(KC_C)
 #define KC_MAC_PASTE LGUI(KC_V)
 
+#define KC_WIN_NEXT_DISPLAY C(G(A(KC_RGHT)))
+#define KC_WIN_PREV_DISPLAY C(G(A(KC_RGHT)))
+#define KC_WIN_LEFT_HALF G(A(KC_LEFT))
+#define KC_WIN_RIGHT_HALF G(A(KC_RGHT))
+#define KC_WIN_TOP_HALF G(A(KC_UP))
+#define KC_WIN_BOTTOM_HALF G(A(KC_DOWN))
+#define KC_WIN_MAXIMIZE G(A(KC_F))
+#define KC_WIN_FULLSCREEN G(C(KC_F))
+#define KC_WIN_ALMOST_MAXIMIZE C(G(A(KC_F)))
+#define KC_WIN_CENTER G(A(KC_C))
+
 /* The Keymap */
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-/* Keymap 0: Basic layer
+/* Keymap 0: Base layer
  *
  * ,-----------------------------------------------------.           ,----------------------------------------------------.
  * |           |   1  |   2  |   3  |   4  |   5  |      |           |      |   6  |   7  |   8  |   9  |   0  |          |
  * |-----------+------+------+------+------+-------------|           |------+------+------+------+------+------+----------|
- * |           |   Q  |   W  |   F  |   P  |   G  |      |           |      |   J  |   L  |   U  |   Y  |   ;  |          |
+ * | OPT       |   Q  |   W  |   F  |   P  |   G  |      |           |      |   J  |   L  |   U  |   Y  |   ;  |     OPT  |
  * |-----------+------+------+------+------+------|      |           |      |------+------+------+------+------+----------|
- * |           |   A  |   R  |   S  |   T  |   D  |      |           |      |   H  |   N  |   E  |   I  |   O  |          |
- * |           |  CMD |  OPT |  CTL |  SFT |      |------|           |------|      |  SFT |  CTL |  OPT |  CMD |          |
- * |-----------+------+------+------+------+------| tmux |           | tmux |------+------+------+------+------+----------|
- * |           |   Z  |   X  |   C  |   V  |   B  |      |           |      |   K  |   M  |   ,  |   .  |   /  |          |
+ * | SFT       |   A  |   R  |   S  |   T  |   D  |------|           |------|   H  |   N  |   E  |   I  |   O  |     SFT  |
+ * |-----------+------+------+------+------+------| Alfr |           | WNDW |------+------+------+------+------+----------|
+ * | CTL       |   Z  |   X  |   C  |   V  |   B  |      |           |      |   K  |   M  |   ,  |   .  |   /  |     CTL  |
  * `-----------+------+------+------+------+-------------'           `-------------+------+------+------+------+----------'
- *   |         |      |      |      | Esc  |                                       |  Del |      |      |      |        |
+ *   | CMD     |      |      |      | Esc  |                                       |  Del |      |      |      |    CMD |
  *   `-------------------------------------'                                       `------------------------------------'
  *                                        ,-------------.       ,---------------.
  *                                        |      |      |       |      |        |
  *                                 ,------|------|------|       |------+--------+------.
  *                                 |      |      |      |       |      |        |      |
  *                                 |Backsp| Tab  |------|       |------|  Enter |Space |
- *                                 | NAVR | FMDIA|      |       |      |   SYMB | NMBR |
+ *                                 |      |      | tmux |       | tmux |        |      |
  *                                 `--------------------'       `----------------------'
  */
 [BASE] = LAYOUT_ergodox_pretty(
   // left hand
-  XXXX,    KC_1,           KC_2,           KC_3,           KC_4,           KC_5,      TG(FULL),                      TG(FULL),            KC_6,           KC_7,           KC_8,           KC_9,      KC_0,       XXXX,
-  XXXX,    KC_Q,           KC_W,           KC_F,           KC_P,           KC_G,      XXXX,                      XXXX,            KC_J,           KC_L,           KC_U,           KC_Y,      KC_SCLN,    XXXX,
-  XXXX,    CMD_T(KC_A),    OPT_T(KC_R),    CTL_T(KC_S),    SFT_T(KC_T),    KC_D,      				 		  KC_H,    SFT_T(KC_N),    CTL_T(KC_E),    OPT_T(KC_I),  CMD_T(KC_O),    XXXX,
-  XXXX,    KC_Z,           KC_X,           KC_C,           KC_V,           KC_B,      LCTL(KC_SPC),              LCTL(KC_SPC),    KC_K,           KC_M,           KC_COMM,        KC_DOT,    KC_SLSH,    XXXX,
-  XXXX,    XXXX,           XXXX,           XXXX,           KC_ESC,                                                                                KC_DEL,         XXXX,           XXXX,      XXXX,       XXXX,
-                                                                           XXXX,      XXXX,                      XXXX,            XXXX,
-                                                                                      XXXX,                      XXXX,
-                                           LT(NAVR, KC_BSPC), LT(FMDIA, KC_TAB),      XXXX,                      XXXX,            LT(SYMB, KC_ENT),   LT(NMBR, KC_SPC)
+  XXXX,        KC_1,           KC_2,           KC_3,           KC_4,           KC_5,      XXXX,                      XXXX,            KC_6,           KC_7,           KC_8,           KC_9,      KC_0,       XXXX,
+  KC_LOPT,     KC_Q,           KC_W,           KC_F,           KC_P,           KC_G,      KC_LBRC,                   KC_RBRC,         KC_J,           KC_L,           KC_U,           KC_Y,      KC_SCLN,    KC_ROPT,
+  KC_LSFT,     KC_A,           KC_R,           KC_S,           KC_T,           KC_D,                                                  KC_H,           KC_N,           KC_E,           KC_I,      KC_O,       KC_RSFT,
+  KC_LCTL,     KC_Z,           KC_X,           KC_C,           KC_V,           KC_B,      LCMD(KC_SPC),              MO(WNDW),        KC_K,           KC_M,           KC_COMM,        KC_DOT,    KC_SLSH,    KC_RCTL,
+  KC_LCMD,     XXXX,           XXXX,           XXXX,           KC_ESC,                                                                                KC_DEL,         XXXX,           XXXX,      XXXX,       KC_RCMD,
+                                                                               XXXX,      XXXX,                      XXXX,            XXXX,
+                                                                                          XXXX,                      XXXX,
+                                              LT(NAVR, KC_BSPC),     LT(FMDIA, KC_TAB),   LCTL(KC_SPC),              LCTL(KC_SPC),    LT(SYMB, KC_ENT),   LT(NMBR, KC_SPC)
 ),
 
 /* Keymap 1: Navigation layer
@@ -192,38 +204,37 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                    XXXX,                    XXXX,
                                                KC_RPRN,    KC_UNDS,XXXX,                    XXXX,        ____,       XXXX
 ),
-/* Keymap 5: Full layer
+/* Keymap 5: Windows Layer
  *
- * ,-----------------------------------------------------.           ,----------------------------------------------------.
- * | `         |   1  |   2  |   3  |   4  |   5  |      |           |      |   6  |   7  |   8  |   9  |   0  |  -       |
- * |-----------+------+------+------+------+-------------|           |------+------+------+------+------+------+----------|
- * | =         |   Q  |   W  |   F  |   P  |   G  |      |           |      |   J  |   L  |   U  |   Y  |   ;  |  \       |
- * |-----------+------+------+------+------+------|      |           |      |------+------+------+------+------+----------|
- * |           |   A  |   R  |   S  |   T  |   D  |      |           |      |   H  |   N  |   E  |   I  |   O  |  '       |
- * |           |      |      |      |      |      |------|           |------|      |      |      |      |      |          |
- * |-----------+------+------+------+------+------| tmux |           | tmux |------+------+------+------+------+----------|
- * | SFT       |   Z  |   X  |   C  |   V  |   B  |      |           |      |   K  |   M  |   ,  |   .  |   /  |     SFT  |
- * `-----------+------+------+------+------+-------------'           `-------------+------+------+------+------+----------'
- *   | CTL     | OPT  | CMD  |      | Esc  |                                       |  Del |      |  CMD |  OPT | CTL |
- *   `-------------------------------------'                                       `------------------------------------'
- *                                        ,-------------.       ,---------------.
- *                                        |      |      |       |      |        |
- *                                 ,------|------|------|       |------+--------+------.
- *                                 |      |      |      |       |      |        |      |
- *                                 |Backsp| Tab  |------|       |------|  Enter |Space |
- *                                 |      |      |      |       |      |        |      |
- *                                 `--------------------'       `----------------------'
+ * ,-----------------------------------------------------.           ,-----------------------------------------------------.
+ * |           |      |      |      |      |      |      |           |      |      |      |      |      |      |           |
+ * |-----------+------+------+------+------+-------------|           |------+------+------+------+------+------+-----------|
+ * |           |      | AMax |  Max | TopH |      |      |           |      |      |      |      |      | Reset|           |
+ * |-----------+------+------+------+------+------|      |           |      |------+------+------+------+------+-----------|
+ * |           |PrevD |LeftH |RightH|NextD |      |------|           |------|      | SFT  | CTRL |  OPT | CMD  |           |
+ * |-----------+------+------+------+------+------|      |           |      |------+------+------+------+------+-----------|
+ * |           |      |      | Cent | BotH |      |      |           |      |      |      |      |      |      |           |
+ * `-----------+------+------+------+------+-------------'           `-------------+------+------+------+------+-----------'
+ *      |      |      |      |      |      |                                       |      |      |      |      |      |
+ *      `----------------------------------'                                       `----------------------------------'
+ *                                         ,-------------.           ,-------------.
+ *                                         |      |      |           |      |      |
+ *                                  ,------|------|------|           |------+------+------.
+ *                                  |      |      |      |           |      |      |      |
+ *                                  |      |      |------|           |------|      |      |
+ *                                  |      |      |      |           |      |      |      |
+ *                                  `--------------------'           `--------------------'
  */
-[FULL] = LAYOUT_ergodox_pretty(
+[WNDW] = LAYOUT_ergodox_pretty(
   // left hand
-  KC_GRV,      KC_1,           KC_2,           KC_3,           KC_4,           KC_5,      TG(FULL),                      TG(FULL),            KC_6,           KC_7,           KC_8,           KC_9,      KC_0,       KC_MINS,
-  KC_EQL,      KC_Q,           KC_W,           KC_F,           KC_P,           KC_G,      XXXX,                      XXXX,            KC_J,           KC_L,           KC_U,           KC_Y,      KC_SCLN,    KC_BSLS,
-  KC_ESC,      KC_A,           KC_R,           KC_S,           KC_T,           KC_D,                                                  KC_H,           KC_N,           KC_E,           KC_I,      KC_O,       KC_QUOT,
-  KC_LSFT,     KC_Z,           KC_X,           KC_C,           KC_V,           KC_B,      LCTL(KC_SPC),              LCTL(KC_SPC),    KC_K,           KC_M,           KC_COMM,        KC_DOT,    KC_SLSH,    KC_RSFT,
-  KC_LCTL,     KC_LOPT,        KC_LCMD,        XXXX,           KC_ESC,                                                                                KC_DEL,         XXXX,           KC_RCMD,   KC_ROPT,    KC_RCTL,
-                                                                           XXXX,      XXXX,                      XXXX,            XXXX,
-                                                                                      XXXX,                      XXXX,
-                                           KC_BSPC, KC_TAB,      XXXX,                      XXXX,            KC_ENT,   KC_SPC
+  XXXX,    XXXX,                  XXXX,                     XXXX,              XXXX,                 XXXX,        XXXX,                    XXXX,        XXXX,       XXXX,          XXXX,         XXXX,          XXXX,           XXXX,
+  XXXX,    XXXX,                  KC_WIN_ALMOST_MAXIMIZE,   KC_WIN_MAXIMIZE,   KC_WIN_TOP_HALF,      XXXX,        XXXX,                    XXXX,        XXXX,       XXXX,          XXXX,         XXXX,          RESET,          XXXX,
+  XXXX,    KC_WIN_PREV_DISPLAY,   KC_WIN_LEFT_HALF,         KC_WIN_RIGHT_HALF, KC_WIN_NEXT_DISPLAY,  XXXX,                                              XXXX,       KC_LSFT,       KC_LCTL,      KC_LOPT,       KC_LCMD,        XXXX,
+  XXXX,    XXXX,                  KC_WIN_FULLSCREEN,        KC_WIN_CENTER,     KC_WIN_BOTTOM_HALF,   XXXX,        XXXX,                    ____,        XXXX,       XXXX,          XXXX,         XXXX,          XXXX,           XXXX,
+  XXXX,    XXXX,                  XXXX,                     XXXX,              XXXX,                                                                                XXXX,          XXXX,         XXXX,          XXXX,           XXXX,
+                                                                                                          XXXX,   XXXX,                    XXXX,        XXXX,
+                                                                                                                  XXXX,                    XXXX,
+                                                                                              XXXX,    XXXX,      XXXX,                    XXXX,        XXXX,       XXXX
 ),
 
 };
@@ -245,6 +256,12 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   ergodox_right_led_2_off();
   ergodox_right_led_3_off();
 
+  if (caps_lock) {
+    ergodox_right_led_2_on();
+  } else {
+    ergodox_right_led_2_off();
+  }
+
   uint8_t layer = get_highest_layer(state);
   switch (layer) {
       case BASE:
@@ -263,7 +280,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
         ergodox_right_led_2_on();
         ergodox_right_led_3_on();
         break;
-      case FULL:
+      case WNDW:
         ergodox_right_led_1_on();
         ergodox_right_led_2_on();
         ergodox_right_led_3_on();
@@ -274,3 +291,15 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
   return state;
 };
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+    case KC_CAPS:
+      if (record->event.pressed) {
+        caps_lock = !caps_lock;
+      }
+      return true;
+    default:
+      return true;
+  }
+}
